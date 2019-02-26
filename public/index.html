@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Welcome to the Class Oylympics website</h1>
+    <label for="firstChoice">Enter your student ID number</label>
+    <input name ='input'></input>
+    <button>Submit Your request</button> 
+    <label>What event would you like to sign up for?</label>
+    <select name = "options">
+        <option>Card games</option>
+        <option>FUN card games</option>
+        <option>League of legneds</option>
+        <option>UNO</option>
+        <option>borderlands</option>
+    </select>
+    <ul id = 'list'>
+    </ul>
+<script>
+    $("button").click(function() {
+        axios.post('/answer',{
+            "answer":$("input[name='input']").val()
+            
+        })
+        .then(function(response) {
+            $("ul#list").append( $("<li></li>").text(`Name: ${response.data.First_Name} ${response.data.Last_Name}`));
+            $("ul#list").append( $("<li></li>").text(`Student ID: ${reponse.data.Student_Number}`));
+            $("ul#list").append( $("<li></li>").text(student));
+            $("ul#list").append( $("<li></li>").text(student));
+            //Object.values(response.data).forEach(student => { 
+            //    $("ul#list").append( $("<li></li>").text(student));
+           // })
+            console.log(response.data);
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+    });
+</script>
+</body>
+</html>
