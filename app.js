@@ -4,15 +4,22 @@ const fs = require('fs');
 
 let students = [];
 
+let events = [];
+
+
 fs.readFile('students.json', (err, data) => {
-    students = JSON.parse(data);
+    students = JSON.parse(data);  
+})
+
+fs.readFile('events.json', (err, data) => {
+    events = JSON.parse(data);
 })
 
 app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/',(req, res) => {
-    
+   
 });
 
 app.post('/answer',(req, res) => {

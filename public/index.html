@@ -2,6 +2,12 @@
 <head>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+        background-color: black;
+        color: white;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome to the Class Oylympics website</h1>
@@ -9,12 +15,8 @@
     <input name ='input'></input>
     <button>Submit Your request</button> 
     <label>What event would you like to sign up for?</label>
-    <select name = "options">
-        <option>Card games</option>
-        <option>FUN card games</option>
-        <option>League of legneds</option>
-        <option>UNO</option>
-        <option>borderlands</option>
+    <select id = "options">
+    
     </select>
     <ul id = 'list'>
     </ul>
@@ -25,13 +27,12 @@
             
         })
         .then(function(response) {
+            $("select#options").append($(`<option id = ${i}></option>`).text("ahh"));
+            
             $("ul#list").append( $("<li></li>").text(`Name: ${response.data.First_Name} ${response.data.Last_Name}`));
-            $("ul#list").append( $("<li></li>").text(`Student ID: ${reponse.data.Student_Number}`));
-            $("ul#list").append( $("<li></li>").text(student));
-            $("ul#list").append( $("<li></li>").text(student));
-            //Object.values(response.data).forEach(student => { 
-            //    $("ul#list").append( $("<li></li>").text(student));
-           // })
+            $("ul#list").append( $("<li></li>").text(`Student ID: ${response.data.Student_Number}`));
+            $("ul#list").append( $("<li></li>").text(`Grade: ${response.data.Grade_Level}`));
+            $("ul#list").append( $("<li></li>").text(`event: ${response.data.event}`));
             console.log(response.data);
         })
         .catch(function(error) {
