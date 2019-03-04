@@ -13,31 +13,58 @@
     <h1>Welcome to the Class Oylympics website</h1>
     <label for="firstChoice">Enter your student ID number</label>
     <input name ='input'></input>
-    <button>Submit Your request</button> 
+    <button id = "submit">Submit Your request</button> 
     <label>What event would you like to sign up for?</label>
     <select id = "options">
     
     </select>
+    <button id = "signUp">Sign up for this event?</button>
     <ul id = 'list'>
     </ul>
 <script>
-    $("button").click(function() {
+    axios.get('/join', {
+        }).then(function(response) {
+        for (let i = 0; i < response.data.length; i++) {
+            $("select#options").append($(`<option id = ${i}></option>`).text(response.data[i].Event)); 
+        }
+
+    }).catch(function(error) {
+        console.log(error);
+    })
+    
+    $("button#signUp").click(function() {
+        axios.post('/signup',{
+           "options":$("select#options").val()
+        })
+        .then(function(response) {
+            for (let i = 0; i < response.data.events.length; i++) {
+                if (response.data.choice.Event == response.data.events[i].Event) {
+                    console.log("FUCK")
+                }
+            }
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+        
+        
+    });
+    $("button#submit").click(function() {
         axios.post('/answer',{
             "answer":$("input[name='input']").val()
             
         })
         .then(function(response) {
-            $("select#options").append($(`<option id = ${i}></option>`).text("ahh"));
-            
             $("ul#list").append( $("<li></li>").text(`Name: ${response.data.First_Name} ${response.data.Last_Name}`));
             $("ul#list").append( $("<li></li>").text(`Student ID: ${response.data.Student_Number}`));
             $("ul#list").append( $("<li></li>").text(`Grade: ${response.data.Grade_Level}`));
             $("ul#list").append( $("<li></li>").text(`event: ${response.data.event}`));
-            console.log(response.data);
         })
         .catch(function(error) {
-            console.log(error);
+            console.error(error);
         });
+        
+        
     });
 </script>
 </body>
