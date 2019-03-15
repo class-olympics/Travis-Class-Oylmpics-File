@@ -1,16 +1,14 @@
-<html>
+<!DOCTYPE html>
 <head>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-        body {
-        background-color: black;
-        color: white;
-        }
-    </style>
+<title>06-0504-0010 - Fundamentals of Web Design</title>
+<html lang="en">
+<meta charset="UTF-8">
+<link href="style.css" rel="stylesheet"type="text/css">
 </head>
 <body>
-    <h1>Welcome to the Class Oylympics website</h1>
+<h1 class="heading">Northview Class Olympics Sign-Up Sheet</h1>
     <label for="firstChoice">Enter your student ID number</label>
     <input name ='input'></input>
     <button id = "submit">Submit Your request</button> 
@@ -20,28 +18,23 @@
     </select>
     <button id = "signUp">Sign up for this event?</button>
     <ul id = 'list'>
+        <li id = "name"></li>
+        <li id = "SID"></li>
+        <li id = "grade"></li>
+        <li id = "event"></li>
     </ul>
-<script>
-    axios.get('/join', {
-        }).then(function(response) {
-        for (let i = 0; i < response.data.length; i++) {
-            $("select#options").append($(`<option id = ${i}></option>`).text(response.data[i].Event)); 
-        }
 
-    }).catch(function(error) {
-        console.log(error);
-    })
-    
+<p></p>
+<p><strong></p>
+<ul><a href="#anchor"> eyue65ue6u</a>
+
+<script>
     $("button#signUp").click(function() {
         axios.post('/signup',{
            "options":$("select#options").val()
         })
         .then(function(response) {
-            for (let i = 0; i < response.data.events.length; i++) {
-                if (response.data.choice.Event == response.data.events[i].Event) {
-                    console.log("FUCK")
-                }
-            }
+            $("button#signUp").enabled = false;
         })
         .catch(function(error) {
             console.error(error);
@@ -55,10 +48,17 @@
             
         })
         .then(function(response) {
-            $("ul#list").append( $("<li></li>").text(`Name: ${response.data.First_Name} ${response.data.Last_Name}`));
-            $("ul#list").append( $("<li></li>").text(`Student ID: ${response.data.Student_Number}`));
-            $("ul#list").append( $("<li></li>").text(`Grade: ${response.data.Grade_Level}`));
-            $("ul#list").append( $("<li></li>").text(`event: ${response.data.event}`));
+            console.log(response.data);
+            
+            
+            $("li#name").text(`Name: ${response.data.student.First_Name} ${response.data.student.Last_Name}`);
+            $("li#SID").text(`Student ID: ${response.data.student.Student_Number}`);
+            $("li#grade").text(`Grade: ${response.data.student.Grade_Level}`);
+            $("li#event").text(`event: ${response.data.student.event}`);
+            
+            for (let i = 0; i < response.data.array.length; i++) {
+            $("select#options").append($(`<option id = ${i}></option>`).text(response.data.array[i].Event)); 
+        }
         })
         .catch(function(error) {
             console.error(error);
@@ -66,6 +66,5 @@
         
         
     });
-</script>
-</body>
-</html>
+    </script>
+<p><strong id="anchor" name = "variableP">Community Service Award</strong> </p>
