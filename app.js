@@ -3,7 +3,7 @@ const app = express();
 const fs = require('fs');
 
 var students = [];
-
+var student;
 var events = [];
 fs.readFile('students.json', (err, data) => {
     students = JSON.parse(data);  
@@ -24,9 +24,8 @@ app.post('/signup', (req,res) => {
              choice = events[i];
          }
      }
-    let package = {choice,events}
-    res.send(package);
-    
+    //let package = {choice,events}
+    writeEvent(choice,student)
 })
 
 app.get('/join',(req, res) => {
@@ -36,7 +35,6 @@ app.get('/join',(req, res) => {
 
 app.post('/answer',(req, res) => {
     let ans = req.body.answer;
-    let student;
     for (let i = 0; i < students.length; i++) {
         if (ans == students[i].Student_Number) {
             student = students[i];
@@ -87,6 +85,41 @@ function studentHandler(grade) {
     }
 }
 
+let writeEvent = (evt, st) => {
+   st.event = evt.Event;
+    for (let i = 0; i < events.length; i++) {
+       if(evt.Event == events[i].Event) {
+           if (st.Grade_Level == 9) {
+               if (evt.Per_Grade > evt.Freshman_Enlisted) {
+                                                                                                                           
+               } else if (st.Per_Grade == evt.Freshman_Enlisted) {
+                                                                                                                               
+               }
+           }
+           if (st.Grade_Level == 10) {
+               if (evt.Per_Grade > evt.Freshman_Enlisted) {
+                                                                                                                           
+               } else if (st.Per_Grade == evt.Freshman_Enlisted) {
+                                                                                                                               
+               }
+           }
+           if (st.Grade_Level == 11) {
+               if (evt.Per_Grade > evt.Freshman_Enlisted) {
+                                                                                                                           
+               } else if (st.Per_Grade == evt.Freshman_Enlisted) {
+                                                                                                                               
+               }
+           }
+           if(st.Grade_Level == 12) {
+               if (evt.Per_Grade > evt.Freshman_Enlisted) {
+                     res.send("successful")                                                                                                      
+               } else if (st.Per_Grade == evt.Freshman_Enlisted) {
+                          res.send("failed")                                                                                                     
+               }
+           }
+       }
+    }
+}
 
 app.post('/signup')
 

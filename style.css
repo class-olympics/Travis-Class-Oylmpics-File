@@ -1,0 +1,35 @@
+.heading{
+font-family:"Times New Roman", Times, Serif;
+font-size:36 px;
+text-align: center;
+color:lightgoldenrodyellow;
+font-weight:bold;
+}body{
+font-family:"Times New Roman", Times, Serif;
+background-color: black;
+color:yellow;
+text-align: center;
+font-size: 12 px;
+
+}
+tr {
+    text-align:center;
+
+}
+tr:nth-child(odd) {
+    font-size: 35px;
+}
+a {
+    color:lightgoldenrodyellow;
+}
+select {
+    color: black;
+    background-color:yellow;
+}
+button {
+    background-color:yellow;
+}
+
+li { 
+    list-style-position: inside;
+}

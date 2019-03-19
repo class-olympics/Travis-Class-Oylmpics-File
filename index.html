@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>06-0504-0010 - Fundamentals of Web Design</title>
+<html lang="en">
+<meta charset="UTF-8">
+<link href="style.css" rel="stylesheet"type="text/css">
+</head>
+<body>
+<h1 class="heading">Northview Class Olympics Sign-Up Sheet</h1>
+    <label for="firstChoice">Enter your student ID number</label>
+    <input name ='input'></input>
+    <button id = "submit">Submit Your request</button> 
+    <label>What event would you like to sign up for?</label>
+    <select id = "options">
+    
+    </select>
+    <button id = "signUp">Sign up for this event?</button>
+    <ul id = 'list'>
+        <li id = "name"></li>
+        <li id = "SID"></li>
+        <li id = "grade"></li>
+        <li id = "event"></li>
+    </ul>
+
+<p></p>
+<p><strong></p>
+<ul><a href="#anchor"> eyue65ue6u</a>
+
+<script>
+    $("button#signUp").click(function() {
+        axios.post('/signup',{
+            "options":$("select#options").val()
+             
+        })
+        .then(function(response) {
+           $("button#signUp").attr('disabled', true); 
+            console.log(response.data);
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+        
+        
+    });
+    $("button#submit").click(function() {
+        axios.post('/answer',{
+            "answer":$("input[name='input']").val()
+            
+        })
+        .then(function(response) {
+            console.log(response.data);
+            
+            
+            $("li#name").text(`Name: ${response.data.student.First_Name} ${response.data.student.Last_Name}`);
+            $("li#SID").text(`Student ID: ${response.data.student.Student_Number}`);
+            $("li#grade").text(`Grade: ${response.data.student.Grade_Level}`);
+            $("li#event").text(`event: ${response.data.student.event}`);
+            
+            for (let i = 0; i < response.data.array.length; i++) {
+            $("select#options").append($(`<option id = ${i}></option>`).text(response.data.array[i].Event)); 
+        }
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
+        
+        
+    });
+    </script>
+<p><strong id="anchor" name = "variableP">Community Service Award</strong> </p>
